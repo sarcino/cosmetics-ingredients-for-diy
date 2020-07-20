@@ -1,4 +1,4 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, json
 
 app = Flask(__name__)
 
@@ -6,13 +6,9 @@ app = Flask(__name__)
 def index():
     return render_template("home.html")
 
-@app.route("/database")
-def database():
-    return render_template("database.html")
-
-@app.route("/sources")
-def sources():
-    return render_template("sources.html")
+@app.route("/resources")
+def resources():
+    return render_template("resources.html")
 
 @app.route("/about")
 def about():
