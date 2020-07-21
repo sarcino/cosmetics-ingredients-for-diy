@@ -1,12 +1,143 @@
 {% extends "layout.html" %}
 {% block content %}
-<div class="jumbotron jumbotron-fluid headline">
+
+<div id="app">
+
+  <div class="jumbotron jumbotron-fluid headline">
     <div class="container">
-        <h2 class="display-4 text-center">Cosmetics Ingredients for DIY</h2>
-        <p class="lead text-center">
-            Learn about ingredients for your DIY cosmetics, creams, infused oils or makeup removers
-        </p>
+      <h2 class="display-4 text-center">Cosmetics Ingredients for DIY</h2>
+    </div>
+    <div class="container-fluid">
+      <div class="row justify-content-center">
+        <label for="input" class="h3 text-center">
+          <h3>What are you looking for?</h3>
+        </label>
+      </div>
+      <div class="row justify-content-center">
+        <input type="text" v-model="search" id="input" placeholder="">
+      </div>
+    </div>
+
+  </div>
+
+
+
+  <div class="container-fluid ingredients">
+    <div class="row justify-content-center">
+      <div v-for="post in filteredList">
+
+        <div class="col-sm ingredient">
+          <img class="img-fluid picture" v-bind:src="post.img" />
+          <h3 class="text-center">[[ post.name ]]</h3>
+          <p>[[ post.description ]]</p>
+        </div>
+
+      </div>
+      <div>
+
+      </div>
 
     </div>
+
+  </div>
 </div>
+
+
+<script src="https://cdn.jsdelivr.net/npm/vue-resource@1.3.4"></script>
+
+
+<script>
+  class Post {
+    constructor(name, description, img, visible) {
+      this.name = name;
+      this.description = description;
+      this.img = img;
+      this.visible = visible;
+    }
+  }
+
+  const app = new Vue({
+    el: "#app",
+    delimiters: ["[[", "]]"],
+    data: {
+      search: "",
+      postList: [
+        new Post(
+          "Coconut Oil",
+          'description of coconut oil',
+          "/static/images/coconut-oil.jpg"
+        ),
+        new Post(
+          'Cocoa Butter',
+          'description',
+          '/static/images/cocoa-butter.jpg'
+        ),
+        new Post(
+          'Essential Oils',
+          'description',
+          '/static/images/essential-oil.jpg'
+        ),
+        new Post(
+          'Aloe Vera Gel',
+          'description',
+          '/static/images/aloe.jpg'
+        ),
+        new Post(
+          'Baking Soda',
+          'description',
+          '/static/images/baking-soda.jpg'
+        ),
+        new Post(
+          'Beeswax',
+          'description',
+          '/static/images/beeswax.jpg'
+        ), new Post(
+          'Shea Butter',
+          'description',
+          '/static/images/shea-butter.jpg'
+        ),
+      ]
+    },
+    computed: {
+      filteredList() {
+        return this.postList.filter(post => {
+          return post.name.toLowerCase().includes(this.search.toLowerCase())
+        })
+      }
+    },
+
+
+  })
+</script>
+
+
+<!--
+<script>
+   
+    var app = new Vue({
+        el: "#app",
+        delimiters: ["[[", "]]"],
+        data: {
+            ingredients: {},
+            myIngredient: ""
+        },
+        mounted: function () {
+            this.fetchData();
+        },
+        methods: {
+            fetchData: function () {
+                this.$http.get("/api").then(response => {
+                        this.ingredients = response.body;
+                        console.log(this.ingredients);
+                    },
+                    response => {
+                        console.log("OMG! An error occured");
+                    });
+            }
+
+        }
+    })
+</script>
+-->
+
 {% endblock %}

@@ -21,13 +21,28 @@ main {
 }
 
 .picture {
-    max-width: 250px;
+    max-width: 200px;
     height: auto;
     -webkit-filter: grayscale(1);
-    filter: grayscale(1);
-    cursor: pointer;
+    filter: grayscale(1);    
+    -webkit-transition-duration: 0.4s;
+    transition-duration: 0.4s;
+}
+
+.picture:hover {
+    -webkit-filter: none;
+    filter: none;
 }
 
 .ingredients {
     margin-top: 30px;
+}
+
+.ingredient {
+    margin-top: 10px;
+    cursor: pointer;
+}
+
+.ingredient h3 {
+    margin-top: 5px;
 }
